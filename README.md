@@ -48,9 +48,7 @@ npm install -g pnpm@latest
 Install the dependencies by running the following commands in your terminal:
 
 ```sh
-pnpm install
-pnpx prisma generate
-pnpx prisma db push
+
 ```
 
 ## Usage

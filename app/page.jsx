@@ -7,8 +7,8 @@ export default function Home() {
     <section>
       <MaxWidthWrapper>
         <div className="text-center">
-          <Link href="/dashboard">
-            <Button>Go to Dashboard</Button>
+          <Link href="/monitors">
+            <Button>Go to Monitors</Button>
           </Link>
         </div>
       </MaxWidthWrapper>

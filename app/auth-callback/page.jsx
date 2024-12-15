@@ -20,7 +20,7 @@ export default function Page() {
     const checkAuth = async () => {
       const response = await actionSigninSignup();
       if (response) {
-        router.push(origin ? origin : "/dashboard");
+        router.push(origin ? origin : "/monitors");
       }
     };
 
@@ -31,7 +31,7 @@ export default function Page() {
   const checkAuth = async () => {
     const response = await actionSigninSignup();
     if (response) {
-      router.push(origin ? origin : "/dashboard");
+      router.push(origin ? origin : "/monitors");
     }
   };
 
@@ -45,3 +45,4 @@ export default function Page() {
     </section>
   );
 }
+

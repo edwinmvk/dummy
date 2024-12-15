@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 import { poppins } from "@/lib/fonts";
 import Navbar from "@/components/Navbar";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Toaster } from "@/components/ui/toaster";
+
 
 export const metadata = {
   title: { default: "Open Stack", template: "%s | Open Stack" },
@@ -20,6 +22,7 @@ export default function RootLayout({ children }) {
       >
         <Navbar />
         {children}
+        <Toaster />
       </body>
     </html>
   );
