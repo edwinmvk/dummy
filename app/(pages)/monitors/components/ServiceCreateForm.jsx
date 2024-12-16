@@ -1,7 +1,5 @@
-"use client";
-
-import { useActionState } from "react";
-import { actionService } from "@/lib/actions";
+import { useEffect, useActionState } from "react";
+import { actionServiceCreate } from "@/lib/actions";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -13,18 +11,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function ServiceStatusForm() {
-  const [returnData, action, isPending] = useActionState(actionService, null);
+export default function ServiceCreateForm({ onClose }) {
+  const [state, action, isPending] = useActionState(actionServiceCreate, null);
+
+  useEffect(() => {
+    if (state && !state.error) {
+      // Close the dialog
+      onClose();
+    }
+  }, [state]);
+
   return (
     <form action={action} className="space-y-4">
-      {/* Error Display or Success display*/}
-      {returnData && returnData.error ? (
+      {/* Error Display */}
+      {state && state.error && (
         <div className="bg-red-100 text-red-700 p-3 rounded-md text-center">
-          {returnData.message}
-        </div>
-      ) : (
-        <div className="bg-green-100 text-green-700 p-3 rounded-md text-center">
-          {returnData.message}
+          {state.message}
         </div>
       )}
 
@@ -52,8 +54,8 @@ export default function ServiceStatusForm() {
 
       {/* Method Dropdown */}
       <div className="space-y-2">
-        <Label>HTTP Method</Label>
-        <Select name="httpMethod">
+        <Label htmlFor="httpMethod">HTTP Method</Label>
+        <Select name="httpMethod" defaultValue="GET">
           <SelectTrigger>
             <SelectValue placeholder="Select Method" />
           </SelectTrigger>
@@ -66,8 +68,8 @@ export default function ServiceStatusForm() {
 
       {/* Service Status Dropdown */}
       <div className="space-y-2">
-        <Label>Service Status</Label>
-        <Select name="serviceStatus">
+        <Label htmlFor="serviceStatus">Service Status</Label>
+        <Select name="serviceStatus" defaultValue="OPERATIONAL">
           <SelectTrigger>
             <SelectValue placeholder="Select Status" />
           </SelectTrigger>

@@ -9,22 +9,46 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  kindeId    String    @unique 
-  name       String?
-  email      String   @unique
-  createdAt  DateTime  @default(now())
+  id          Int           @id @default(autoincrement())
+  kindeId     String        @unique 
+  name        String?
+  email       String        @unique
+  createdAt   DateTime      @default(now())
+  service     Service[]
 }
 
 model Service {
-  id          Int      @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String
-  description String?
-  method      Method @default(GET)
-  status      Status   @default(OPERATIONAL)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  link        String
+  method      Method        @default(GET)
+  status      Status        @default(OPERATIONAL)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  userId      String
+  User        User          @relation(fields: [userId], references: [kindeId])
+  incidents   Incident[]    // Relationship to Incident model
 }
+
+model Incident {
+  id          Int            @id @default(autoincrement())
+  name        String
+  status      IncidentStatus @default(ONGOING)    // Enum for status
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  serviceId   Int            // Foreign key linking to Service
+  service     Service        @relation(fields: [serviceId], references: [id])
+  updates     Update[]       // Relationship to Update model
+}
+
+model Update {
+  id          Int           @id @default(autoincrement())
+  incidentId  Int           // Foreign key linking to Incident
+  incident    Incident      @relation(fields: [incidentId], references: [id])
+  message     String        // Update message (e.g., "Root cause identified")
+  createdAt   DateTime      @default(now())
+}
+
 
 enum Status {
   OPERATIONAL
@@ -36,4 +60,10 @@ enum Status {
 enum Method {
   GET 
   POST
+}
+
+enum IncidentStatus {
+  ONGOING
+  RESOLVED
+  SCHEDULED
 }

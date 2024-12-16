@@ -22,10 +22,6 @@ const Navigation = () => {
       href: "/incidents",
     },
     {
-      title: "Status Pages",
-      href: "/status",
-    },
-    {
       title: "Notifications",
       href: "/notifications",
     },
