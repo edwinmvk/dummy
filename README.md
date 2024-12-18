@@ -1,4 +1,4 @@
-<h1 align="center">Open Status</h1>
+
 
 ## Introduction
 
@@ -13,11 +13,13 @@ Before running this project, make sure you have the following software installed
 
 ## Get Started
 
-To get started with the app, you will need to clone this repository and install the dependencies. You can do this by running the following commands in your terminal:
+To get started with the app, 
+1. Create a Kinde account for auth and Supabase postgresql
+3. You will need to clone this repository and install the dependencies. You can do this by running the following commands in your terminal:
 
 ```sh
-git clone https://github.com/yyyyyy/xxxxxxx.git
-cd xxxxxxx
+git clone https://github.com/edwinmoncy/server-actions.git
+cd server-actions
 ```
 
 ## Setting Environment Variables
@@ -27,11 +29,12 @@ In root directory, create a file `.env`
 Add the following in the file.
 
 ```sh
-DATABASE_URL = *******************
+DATABASE_URL = YOUR_TRANSACTION_POOLER_URL?pgbouncer=true&connection_limit=1
+DIRECT_URL= YOUR_SESSION_POOLER_URL
 
 KINDE_CLIENT_ID=*******************
 KINDE_CLIENT_SECRET=*******************
-KINDE_ISSUER_URL=https://*******************
+KINDE_ISSUER_URL=*******************
 KINDE_SITE_URL=http://localhost:3000
 KINDE_POST_LOGOUT_REDIRECT_URL=http://localhost:3000
 KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/monitors
@@ -45,10 +48,17 @@ KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/monitors
 npm install -g pnpm@latest
 ```
 
-Install the dependencies by running the following commands in your terminal:
+1. Install the dependencies by running the following commands in your terminal:
 
 ```sh
+pnpm install
+```
 
+2. Set up the Prisma ORM
+
+```
+npx prisma generate
+npx prisma migrate dev --name init
 ```
 
 ## Usage
